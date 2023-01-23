@@ -9,6 +9,12 @@ app.use(express.json());
 
 app.get("/", getHelloMessageController);
 
-await initDbConnection();
-app.listen(PORT);
-console.log(`Playground is running on port: ${PORT}`);
+const dbConnectionSuccess = await initDbConnection();
+
+if (dbConnectionSuccess) {
+  app.listen(PORT);
+  console.log(`Playground is running on port: ${PORT}`);
+} else {
+  console.error("Error connecting to the database:");
+  console.log("The server will not start");
+}
