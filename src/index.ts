@@ -1,4 +1,5 @@
 import express from "express";
+import router from "./routes/index.js";
 import { getHelloMessageController } from "./controllers/helloWorldController.js";
 import { initDbConnection } from "./db/dbInit.js";
 
@@ -8,6 +9,8 @@ const app = express();
 app.use(express.json());
 
 app.get("/", getHelloMessageController);
+
+app.use('/api', router)
 
 const dbConnectionSuccess = await initDbConnection();
 
