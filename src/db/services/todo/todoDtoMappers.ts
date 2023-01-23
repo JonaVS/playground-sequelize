@@ -5,7 +5,9 @@ export const toTodoDto = (todo: Todo): TodoDTO => {
   const responseDTO: TodoDTO = {
     id: todo.id,
     title: todo.title,
-    description: todo.description
+    description: todo.description,
+    createdAt: todo.createdAt,
+    updatedAt: todo.updatedAt
   };
   return responseDTO;
 };

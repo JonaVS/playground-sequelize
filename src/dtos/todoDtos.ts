@@ -5,4 +5,6 @@ export type CreateTodoDTO = {
 
 export type TodoDTO = CreateTodoDTO & {
   id: number;
+  createdAt: Date,
+  updatedAt: Date
 };
