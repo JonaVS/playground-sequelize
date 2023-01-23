@@ -18,6 +18,5 @@ if (dbConnectionSuccess) {
   app.listen(PORT);
   console.log(`Playground is running on port: ${PORT}`);
 } else {
-  console.error("Error connecting to the database:");
-  console.log("The server will not start");
+  console.log("The server could not be initialized");
 }
