@@ -16,14 +16,16 @@ export const getAll = async ():Promise<Result<Todo[]>> => {
   return {sucess, data: todos}
 };
 
-export const create = async (todo: CreateTodoDTO): Promise<Todo | null> => {
-  let createdTodo: Todo;
+export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> => {
+  let createdTodo: Todo | null = null;
+  let sucess = true;
+  
   try {
     createdTodo = await Todo.create(todo);
   } catch (error) {
     console.log("An error ocurred while creating the Todo entity");
-    return null;
+    sucess = false;
   }
 
-  return createdTodo;
+  return {sucess, data: createdTodo}
 };

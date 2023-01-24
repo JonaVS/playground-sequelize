@@ -21,14 +21,14 @@ todoRouter.post(
   "/",
   validateRequestBody,
   async (req: TypedRequestBody<CreateTodoDTO>, res: Response) => {
-    const createdTodo = await todoController.create(req.body);
+    const result = await todoController.create(req.body);
 
-    if (!createdTodo) {
+    if (!result.sucess) {
       res
         .status(500)
         .json({ error: "An error ocurred while creating the todo entity" });
     } else {
-      res.status(200).json(createdTodo);
+      res.status(200).json(result.data);
     }
   }
 );

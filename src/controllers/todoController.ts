@@ -6,6 +6,6 @@ export const getAll = async():Promise<Result<TodoDTO[]>> => {
     return await todoService.getAll();
 }
 
-export const create = async(payload: CreateTodoDTO): Promise<TodoDTO | null> => {
+export const create = async(payload: CreateTodoDTO): Promise<Result<TodoDTO | null>> => {
     return await todoService.create(payload);
 }
