@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { CreateTodoDTO } from "../dtos/todoDtos.js";
-import { TypedRequestBody } from "./types/requestBody.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
+import { CreateRequest } from "./types/Request/genericRequests.js";
 
 const todoRouter = Router();
 
@@ -20,7 +20,7 @@ todoRouter.get("/", async (req: Request, res: Response) => {
 todoRouter.post(
   "/",
   validateRequestBody,
-  async (req: TypedRequestBody<CreateTodoDTO>, res: Response) => {
+  async (req: CreateRequest<CreateTodoDTO>, res: Response) => {
     const result = await todoController.create(req.body);
 
     if (!result.sucess) {
