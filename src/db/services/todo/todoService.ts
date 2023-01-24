@@ -10,6 +10,14 @@ export const getAll = async ():Promise<Result<TodoDTO[]>> => {
   return {sucess: dbResult.sucess, data: todosDTOs}
 }
 
+export const getById = async (id: number):Promise<Result<TodoDTO | null>> => {
+  const dbResult = await todoDal.getById(id);
+  return {
+    ...dbResult,
+    data: (dbResult.sucess && dbResult.data) ? toTodoDto(dbResult.data!) : null
+  };
+}
+
 export const create = async (todo: CreateTodoDTO): Promise<Result<TodoDTO | null>> => {
   const dbResult = await todoDal.create(todo);
   return {

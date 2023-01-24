@@ -2,7 +2,9 @@ import { Request, Response, Router } from "express";
 import { CreateTodoDTO } from "../dtos/todoDtos.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
-import { CreateRequest } from "./types/Request/genericRequests.js";
+import { CreateRequest, GetByIdRequest } from "./types/Request/genericRequests.js";
+import { BaseParam } from "./types/BaseParam.js";
+import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 
 const todoRouter = Router();
 
@@ -12,6 +14,18 @@ todoRouter.get("/", async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ error: "An error ocurred while fetching the todo entities" });
+  }else {
+    res.status(200).json(result.data);
+  }
+});
+
+todoRouter.get("/:id", validateRequestNumIdParam, async (req: GetByIdRequest<BaseParam>, res: Response) => {
+  const todoId = Number(req.params.id)
+  const result = await todoController.getById(todoId);
+  if (!result.sucess) {
+    res
+      .status(500)
+      .json({ error: "An error ocurred while fetching the todo entity" });
   }else {
     res.status(200).json(result.data);
   }
