@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { CreateTodoDTO } from "../dtos/todoDtos.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
-import { CreateRequest, GetByIdRequest } from "./types/Request/genericRequests.js";
+import { CreateRequest, GetByIdRequest, DeleteByIdRequest } from "./types/Request/genericRequests.js";
 import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 
 const todoRouter = Router();
@@ -42,6 +42,30 @@ todoRouter.post(
         .json({ error: "An error ocurred while creating the todo entity" });
     } else {
       res.status(200).json(result.data);
+    }
+  }
+);
+
+todoRouter.delete(
+  "/:id",
+  validateRequestNumIdParam,
+  async (req: DeleteByIdRequest, res: Response) => {
+    const todoId = Number(req.params.id);
+    const result = await todoController.deleteById(todoId);
+    if (!result.success) {
+      res
+        .status(500)
+        .json({
+          error: "An error ocurred while deleting the specified todo entity",
+        });
+    } else {
+      if (result.data === 0) {
+        res.status(400).json({
+          error: "Bad Request: The provided Id is invalid",
+        });
+      } else {
+        res.status(200).json(result.data);
+      }
     }
   }
 );

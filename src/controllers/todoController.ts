@@ -13,3 +13,7 @@ export const getById = async(id: number):Promise<Result<TodoDTO | null>> => {
 export const create = async(payload: CreateTodoDTO): Promise<Result<TodoDTO | null>> => {
     return await todoService.create(payload);
 }
+
+export const deleteById = async(id: number): Promise<Result<number>> => {
+    return await todoService.deleteById(id);
+}

@@ -25,3 +25,7 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<TodoDTO | null
     data: dbResult.success ? toTodoDto(dbResult.data!) : null
   };
 };
+
+export const deleteById = async (id: number): Promise<Result<number>> => {
+  return await todoDal.deleleById(id);
+};

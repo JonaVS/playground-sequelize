@@ -42,3 +42,21 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> 
 
   return {success, data: createdTodo}
 };
+
+export const deleleById = async (id: number): Promise<Result<number>> => {
+  let deletedRows = -1
+  let success = true
+
+  try {
+    deletedRows =  await Todo.destroy({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {
+    success = false
+    console.log("An error ocurred while deleting the specified Todo entity");
+  }
+
+  return {success, data: deletedRows }
+};
