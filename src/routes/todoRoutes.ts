@@ -10,7 +10,7 @@ const todoRouter = Router();
 
 todoRouter.get("/", async (req: Request, res: Response) => {
   const result = await todoController.getAll();
-  if (!result.sucess) {
+  if (!result.success) {
     res
       .status(500)
       .json({ error: "An error ocurred while fetching the todo entities" });
@@ -22,7 +22,7 @@ todoRouter.get("/", async (req: Request, res: Response) => {
 todoRouter.get("/:id", validateRequestNumIdParam, async (req: GetByIdRequest<BaseParam>, res: Response) => {
   const todoId = Number(req.params.id)
   const result = await todoController.getById(todoId);
-  if (!result.sucess) {
+  if (!result.success) {
     res
       .status(500)
       .json({ error: "An error ocurred while fetching the todo entity" });
@@ -37,7 +37,7 @@ todoRouter.post(
   async (req: CreateRequest<CreateTodoDTO>, res: Response) => {
     const result = await todoController.create(req.body);
 
-    if (!result.sucess) {
+    if (!result.success) {
       res
         .status(500)
         .json({ error: "An error ocurred while creating the todo entity" });

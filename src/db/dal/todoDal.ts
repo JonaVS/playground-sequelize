@@ -4,16 +4,16 @@ import { Result } from "../../types/Result.js";
 
 export const getAll = async ():Promise<Result<Todo[]>> => {
   let todos: Todo[] = [];
-  let sucess = true
+  let success = true
 
   try {
     todos = await Todo.findAll();
   } catch (error) {
-    sucess = false
+    success = false
     console.log("An error ocurred while fetching the Todo entities");
   }
 
-  return {sucess, data: todos}
+  return {success, data: todos}
 };
 
 export const getById = async (id: number):Promise<Result<Todo | null>> => {
@@ -26,19 +26,19 @@ export const getById = async (id: number):Promise<Result<Todo | null>> => {
     success = false;
     console.log("An error ocurred while fetching the specified Todo entity");
   }
-  return {sucess: success, data: todo}
+  return {success, data: todo}
 }
 
 export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> => {
   let createdTodo: Todo | null = null;
-  let sucess = true;
+  let success = true;
 
   try {
     createdTodo = await Todo.create(todo);
   } catch (error) {
     console.log("An error ocurred while creating the Todo entity");
-    sucess = false;
+    success = false;
   }
 
-  return {sucess, data: createdTodo}
+  return {success, data: createdTodo}
 };

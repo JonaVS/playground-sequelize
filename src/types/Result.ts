@@ -1,4 +1,4 @@
 export type Result<T> = {
-  sucess: boolean;
+  success: boolean;
   data: T;
 };
