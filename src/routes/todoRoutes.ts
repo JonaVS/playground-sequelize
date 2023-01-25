@@ -3,7 +3,6 @@ import { CreateTodoDTO } from "../dtos/todoDtos.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
 import { CreateRequest, GetByIdRequest } from "./types/Request/genericRequests.js";
-import { BaseParam } from "./types/BaseParam.js";
 import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 
 const todoRouter = Router();
@@ -19,7 +18,7 @@ todoRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-todoRouter.get("/:id", validateRequestNumIdParam, async (req: GetByIdRequest<BaseParam>, res: Response) => {
+todoRouter.get("/:id", validateRequestNumIdParam, async (req: GetByIdRequest, res: Response) => {
   const todoId = Number(req.params.id)
   const result = await todoController.getById(todoId);
   if (!result.success) {
