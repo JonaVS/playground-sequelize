@@ -1,10 +1,10 @@
 ## SEQUELIZE-PLAYGROUND
 
-A repo where I tryout Sequelize ORM stuff.
+A place where I tryout Sequelize ORM stuff.
 
 ## Current Technologies:
 
 - Express
 - TypeScript
-- Sqlite
+- MySQL
 - Sequelize
