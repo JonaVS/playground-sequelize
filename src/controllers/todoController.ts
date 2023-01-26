@@ -1,4 +1,4 @@
-import { CreateTodoDTO, TodoDTO } from "../dtos/todoDtos.js"
+import { CreateTodoDTO, TodoDTO, UpdateTodoDTO } from "../dtos/todoDtos.js"
 import * as todoService from '../db/services/todo/todoService.js'
 import { Result } from "../types/Result.js";
 
@@ -16,4 +16,8 @@ export const create = async(payload: CreateTodoDTO): Promise<Result<TodoDTO | nu
 
 export const deleteById = async(id: number): Promise<Result<number>> => {
     return await todoService.deleteById(id);
+}
+
+export const updateById = async(id: number, dataToUpdate: UpdateTodoDTO): Promise<Result<TodoDTO | null>> => {
+    return await todoService.updateById(id, dataToUpdate);
 }

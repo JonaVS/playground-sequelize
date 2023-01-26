@@ -10,5 +10,9 @@ export interface CreateRequest<T> extends Request { body: T };
 export interface ParamsRequest<T extends ParamsDictionary> extends Request {
   params: T;
 }
+
 export interface GetByIdRequest extends ParamsRequest<BaseParam>{}
 export interface DeleteByIdRequest extends ParamsRequest<BaseParam>{}
+export interface UpdateByIdRequest<T> extends ParamsRequest<BaseParam> {
+  body: T;
+}

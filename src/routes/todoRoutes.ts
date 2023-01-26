@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
-import { CreateTodoDTO } from "../dtos/todoDtos.js";
+import { CreateTodoDTO, UpdateTodoDTO } from "../dtos/todoDtos.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
-import { CreateRequest, GetByIdRequest, DeleteByIdRequest } from "./types/Request/genericRequests.js";
+import { CreateRequest, GetByIdRequest, DeleteByIdRequest, UpdateByIdRequest } from "./types/Request/genericRequests.js";
 import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 
 const todoRouter = Router();
@@ -62,6 +62,29 @@ todoRouter.delete(
       if (result.data === 0) {
         res.status(400).json({
           error: "Bad Request: The provided Id is invalid",
+        });
+      } else {
+        res.status(200).json(result.data);
+      }
+    }
+  }
+);
+
+todoRouter.put(
+  "/:id",
+  validateRequestNumIdParam,
+  validateRequestBody,
+  async (req: UpdateByIdRequest<UpdateTodoDTO>, res: Response) => {
+    const todoId = Number(req.params.id);
+    const result = await todoController.updateById(todoId, req.body);
+    if (!result.success) {
+      res.status(500).json({
+        error: "An error ocurred while updating the specified todo entity",
+      });
+    } else {
+      if (!result.data) {
+        res.status(400).json({
+          error: "Bad Request: The provided Id doesnt exist",
         });
       } else {
         res.status(200).json(result.data);

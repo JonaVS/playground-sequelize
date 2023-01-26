@@ -1,4 +1,4 @@
-import { CreateTodoDTO } from "../../dtos/todoDtos.js";
+import { CreateTodoDTO, UpdateTodoDTO } from "../../dtos/todoDtos.js";
 import Todo from "../../models/Todo.js";
 import { Result } from "../../types/Result.js";
 
@@ -60,3 +60,20 @@ export const deleteById = async (id: number): Promise<Result<number>> => {
 
   return {success, data: deletedRows }
 };
+
+export const updateById = async (id: number, dataToUpdate: UpdateTodoDTO): Promise<Result<Todo | null>> => {
+  let updatedTodo: Todo | null = null
+  let success  = true
+  
+  try {
+    const todoTarget = await Todo.findByPk(id);
+    if (todoTarget) {
+      updatedTodo = await todoTarget.update(dataToUpdate);
+    } 
+
+  } catch (error) {
+    success = false;
+    console.log("An error ocurred while updating the specified Todo entity");
+  }
+  return {success, data: updatedTodo}
+}

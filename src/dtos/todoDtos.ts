@@ -8,3 +8,5 @@ export type TodoDTO = CreateTodoDTO & {
   createdAt: Date,
   updatedAt: Date
 };
+
+export type UpdateTodoDTO = Partial<CreateTodoDTO>;
