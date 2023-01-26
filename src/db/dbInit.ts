@@ -5,7 +5,7 @@ export const initDbConnection = async (): Promise<boolean> => {
   let success = false
   try {
     await sequelizeConnection.authenticate();
-    await Todo.sync();
+    await Todo.sync({alter: true});
     success = true
     console.log("Connection has been established successfully.");
   } catch (error) {

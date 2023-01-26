@@ -13,6 +13,7 @@ class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare description: string;
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
+  declare deletedAt: CreationOptional<Date>
 }
 
 Todo.init({
@@ -34,8 +35,11 @@ Todo.init({
   },
   updatedAt: {
     type: DataTypes.DATE,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
   }
-}, {sequelize: sequelizeConnection , tableName: "todos"});
+}, {sequelize: sequelizeConnection , tableName: "todos", paranoid: true});
 
 
 export default Todo
