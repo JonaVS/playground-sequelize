@@ -43,7 +43,7 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> 
   return {success, data: createdTodo}
 };
 
-export const deleleById = async (id: number): Promise<Result<number>> => {
+export const deleteById = async (id: number): Promise<Result<number>> => {
   let deletedRows = -1
   let success = true
 
