@@ -39,7 +39,7 @@ Todo.init({
   deletedAt: {
     type: DataTypes.DATE,
   }
-}, {sequelize: sequelizeConnection , tableName: "todos", paranoid: true});
+}, {sequelize: sequelizeConnection , tableName: "Todos", paranoid: true});
 
 
 export default Todo
