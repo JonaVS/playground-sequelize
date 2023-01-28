@@ -1,10 +1,9 @@
-import Todo from "../models/Todo.js";
-import User from "../models/User.js";
+import { sequelizeConnection } from "./config.js";
 
 export const initDbConnection = async (): Promise<boolean> => {
   let success = false;
   try {
-    await Promise.all([Todo.sync({ alter: true }), User.sync({ alter: true })])
+    await sequelizeConnection.sync({alter: true})
     success = true;
     console.log("Database connection and synchronization has been completed successfully");
   } catch (error) {
