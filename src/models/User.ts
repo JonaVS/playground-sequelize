@@ -28,13 +28,24 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+        isEmail: true
+      },
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      },
       set: function(password:string) {
         this.setDataValue('password', bcrypt.hashSync(password, 10)); 
       }
