@@ -5,7 +5,9 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
+  ForeignKey,
 } from "sequelize";
+import User from "./User.js";
 
 class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare id: CreationOptional<number>;
@@ -14,6 +16,7 @@ class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
   declare deletedAt: CreationOptional<Date>
+  declare UserId: ForeignKey<User['id']>;
 }
 
 Todo.init({

@@ -7,6 +7,7 @@ import {
   DataTypes,
 } from "sequelize";
 import bcrypt from "bcrypt";
+import Todo from "./Todo.js";
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -62,5 +63,8 @@ User.init(
   },
   { sequelize: sequelizeConnection, tableName: "Users", paranoid: true }
 );
+
+User.hasMany(Todo) 
+Todo.belongsTo(User)
 
 export default User
