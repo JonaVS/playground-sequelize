@@ -6,6 +6,7 @@ import {
   InferCreationAttributes,
   DataTypes,
 } from "sequelize";
+import bcrypt from "bcrypt";
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -34,7 +35,9 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      set: function(password:string) {
+        this.setDataValue('password', bcrypt.hashSync(password, 10)); 
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
