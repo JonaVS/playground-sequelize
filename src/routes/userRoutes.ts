@@ -22,23 +22,26 @@ userRouter.post(
   }
 );
 
-userRouter.post("/login",async (req:LoginRequest<UserLoginDTO>, res:Response) => {
-  const result = await userController.login(req.body);
+userRouter.post(
+  "/login",
+  validateRequestBody,
+  async (req: LoginRequest<UserLoginDTO>, res: Response) => {
+    const result = await userController.login(req.body);
 
-  if (!result.success && !result.data) {
-    res
-      .status(500)
-      .json({ error: "An error ocurred while authenticating the User" });
-  } else {
-    if (!result.data) {
-      res.status(400).json({
-        error: "Bad Request: Invalid email or password",
-      });
-    }else{
-      res.status(200).json(result.data);
+    if (!result.success && !result.data) {
+      res
+        .status(500)
+        .json({ error: "An error ocurred while authenticating the User" });
+    } else {
+      if (!result.data) {
+        res.status(400).json({
+          error: "Bad Request: Invalid email or password",
+        });
+      } else {
+        res.status(200).json(result.data);
+      }
     }
-    
   }
-})
+);
 
 export default userRouter;  
