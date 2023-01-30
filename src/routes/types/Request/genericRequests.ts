@@ -16,3 +16,5 @@ export interface DeleteByIdRequest extends ParamsRequest<BaseParam>{}
 export interface UpdateByIdRequest<T> extends ParamsRequest<BaseParam> {
   body: T;
 }
+
+export interface LoginRequest<T> extends Request {body: T};
