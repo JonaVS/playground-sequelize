@@ -1,4 +1,4 @@
 export type UserJwtPayload = {
-  id: number;
+  userId: number;
   username: string;
 };

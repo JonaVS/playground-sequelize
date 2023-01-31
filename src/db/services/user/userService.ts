@@ -19,7 +19,7 @@ export const login = async (credentials: UserLoginDTO): Promise<Result<Authentic
     let token = ""
     if (dbResult.success && dbResult.data) {
         const payload:UserJwtPayload = {
-            id: dbResult.data.id,
+            userId: dbResult.data.id,
             username: dbResult.data.username
         }
         token = jwt.sign(payload, process.env.JWT_KEY, {expiresIn: '1h'});
