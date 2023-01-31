@@ -4,6 +4,7 @@ import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
 import { CreateRequest, GetByIdRequest, DeleteByIdRequest, UpdateByIdRequest } from "./types/Request/genericRequests.js";
 import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
+import { validateAuthJwt } from "../middlewares/requestAuthValidation.js";
 
 const todoRouter = Router();
 
@@ -32,6 +33,7 @@ todoRouter.get("/:id", validateRequestNumIdParam, async (req: GetByIdRequest, re
 
 todoRouter.post(
   "/",
+  validateAuthJwt,
   validateRequestBody,
   async (req: CreateRequest<CreateTodoDTO>, res: Response) => {
     const result = await todoController.create(req.body);

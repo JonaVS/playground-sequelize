@@ -34,7 +34,8 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> 
   let success = true;
 
   try {
-    createdTodo = await Todo.create(todo);
+    //UserId is a db FK
+    createdTodo = await Todo.create({...todo, UserId: todo.userId});
   } catch (error) {
     console.log("An error ocurred while creating the Todo entity");
     success = false;
