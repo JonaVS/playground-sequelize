@@ -7,7 +7,7 @@ import * as userController from "../controllers/userController.js";
 const userRouter = Router();
 
 userRouter.post(
-  "/",
+  "/signup",
   validateRequestBody,
   async (req: CreateRequest<CreateUserDTO>, res: Response) => {
     const result = await userController.create(req.body);
