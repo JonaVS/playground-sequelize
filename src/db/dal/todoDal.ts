@@ -69,7 +69,7 @@ export const updateById = async (id: number, dataToUpdate: UpdateTodoDTO): Promi
   
   try {
     const todoTarget = await Todo.findByPk(id);
-    if (todoTarget) {
+    if (todoTarget && todoTarget.UserId === dataToUpdate.userId) {
       updatedTodo = await todoTarget.update(dataToUpdate);
     } 
 

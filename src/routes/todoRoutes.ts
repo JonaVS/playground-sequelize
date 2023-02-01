@@ -77,6 +77,7 @@ todoRouter.delete(
 
 todoRouter.put(
   "/:id",
+  validateAuthJwt,
   validateRequestNumIdParam,
   validateRequestBody,
   async (req: UpdateByIdRequest<UpdateTodoDTO>, res: Response) => {
