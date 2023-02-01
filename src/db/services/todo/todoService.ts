@@ -26,8 +26,8 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<TodoDTO | null
   };
 };
 
-export const deleteById = async (id: number): Promise<Result<number>> => {
-  return await todoDal.deleteById(id);
+export const deleteById = async (id: number, userId: number): Promise<Result<number>> => {
+  return await todoDal.deleteById(id, userId);
 };
 
 export const updateById = async (id: number, dataToUpdate: UpdateTodoDTO) : Promise<Result<TodoDTO | null>> => {

@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { CreateTodoDTO, UpdateTodoDTO } from "../dtos/todoDtos.js";
 import * as todoController from "../controllers/todoController.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
-import { CreateRequest, GetByIdRequest, DeleteByIdRequest, UpdateByIdRequest } from "./types/Request/genericRequests.js";
+import { CreateRequest, GetByIdRequest, UpdateByIdRequest, AuthDeleteByIdRequest } from "./types/Request/genericRequests.js";
 import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 import { validateAuthJwt } from "../middlewares/requestAuthValidation.js";
 
@@ -50,10 +50,13 @@ todoRouter.post(
 
 todoRouter.delete(
   "/:id",
+  validateAuthJwt,
   validateRequestNumIdParam,
-  async (req: DeleteByIdRequest, res: Response) => {
+  async (req: AuthDeleteByIdRequest, res: Response) => {
     const todoId = Number(req.params.id);
-    const result = await todoController.deleteById(todoId);
+    // userId is added by the validateAuthJwt middleware if theres a valid JWT.
+    const userId = Number(req.body.userId) 
+    const result = await todoController.deleteById(todoId, userId);
     if (!result.success) {
       res
         .status(500)

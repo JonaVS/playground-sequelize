@@ -14,8 +14,8 @@ export const create = async(payload: CreateTodoDTO): Promise<Result<TodoDTO | nu
     return await todoService.create(payload);
 }
 
-export const deleteById = async(id: number): Promise<Result<number>> => {
-    return await todoService.deleteById(id);
+export const deleteById = async(id: number, userId:number): Promise<Result<number>> => {
+    return await todoService.deleteById(id, userId);
 }
 
 export const updateById = async(id: number, dataToUpdate: UpdateTodoDTO): Promise<Result<TodoDTO | null>> => {
