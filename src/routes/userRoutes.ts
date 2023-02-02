@@ -1,8 +1,9 @@
 import { Request, Response, Router } from "express";
 import { CreateUserDTO, UserLoginDTO } from "../dtos/userDtos.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
-import { CreateRequest, LoginRequest } from "./types/Request/genericRequests.js";
+import { CreateRequest, GetByIdRequest, LoginRequest } from "./types/Request/genericRequests.js";
 import * as userController from "../controllers/userController.js";
+import { validateRequestNumIdParam } from "../middlewares/requestNumIdParamValidationMiddleware.js";
 
 const userRouter = Router();
 
@@ -59,5 +60,32 @@ userRouter.get("/users-todos", async (req: Request, res: Response) => {
     res.status(200).json(result.data);
   }
 });
+
+/*
+  Endpoint to test lazy-loading of a model with relations/associations
+  This gets all the todos for the specified user (via userId).
+*/
+userRouter.get(
+  "/:id/todos",
+  validateRequestNumIdParam,
+  async (req: GetByIdRequest, res: Response) => {
+    const userId = Number(req.params.id);
+    const result = await userController.getUserTodos(userId);
+
+    if (!result.success) {
+      res
+        .status(500)
+        .json({ error: "An error ocurred while fetching the specified user todos" });
+    } else {
+      if (!result.data) {
+        res.status(400).json({
+          error: "Bad Request: The provided Id is invalid",
+        });
+      } else {
+        res.status(200).json(result.data);
+      }
+    }
+  }
+);
 
 export default userRouter;  

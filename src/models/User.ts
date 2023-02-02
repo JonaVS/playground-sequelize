@@ -6,6 +6,7 @@ import {
   InferCreationAttributes,
   DataTypes,
   NonAttribute,
+  HasManyGetAssociationsMixin,
 } from "sequelize";
 import bcrypt from "bcrypt";
 import Todo from "./Todo.js";
@@ -20,6 +21,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare deletedAt: CreationOptional<Date>;
 
   declare Todos?: NonAttribute<Todo[]>;
+  declare getTodos: HasManyGetAssociationsMixin<Todo>;
 }
 
 User.init(

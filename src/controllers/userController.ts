@@ -13,3 +13,7 @@ export const login = async(payload: UserLoginDTO): Promise<Result<AuthenticatedU
 export const getUsersAndTodos = async(): Promise<Result<UserWithTodosDTO[]>> => {
     return await userService.getUsersAndTodos();
 }
+
+export const getUserTodos = async(userId: number): Promise<Result<UserWithTodosDTO | null>> => {
+    return await userService.getUserTodos(userId);
+}

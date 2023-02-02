@@ -33,3 +33,11 @@ export const getUsersAndTodos = async(): Promise<Result<UserWithTodosDTO[]>> => 
 
     return {success: dbResult.success, data: usersWithTodosDto }
 }
+
+export const getUserTodos = async(userId: number): Promise<Result<UserWithTodosDTO | null>> => {
+    const dbResult = await userDal.getUserTodos(userId);    
+    return {
+      success: dbResult.success,
+      data: dbResult.data ? toUserWithTodosDto(dbResult.data) : null,
+    };
+}
