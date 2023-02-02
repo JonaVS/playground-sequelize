@@ -1,5 +1,6 @@
-import { AuthenticatedUserDTO, UserDTO } from "../../../dtos/userDtos.js";
+import { AuthenticatedUserDTO, UserDTO, UserWithTodosDTO } from "../../../dtos/userDtos.js";
 import User from "../../../models/User.js";
+import { toTodoDto } from "../todo/todoDtoMappers.js";
 
 export const toUserDto = (user: User): UserDTO => {
   const responseDTO: UserDTO = {
@@ -21,3 +22,13 @@ export const toAuthenticatedUserDto = (user: User, jwt: string): AuthenticatedUs
   };
   return responseDTO;
 };
+
+export const toUserWithTodosDto = (user: User): UserWithTodosDTO => {
+  const responseDTO: UserWithTodosDTO = {
+    id: user.id,
+    username: user.username,
+    todos: user.Todos ? user.Todos.map(toTodoDto) : []
+  }
+
+  return responseDTO
+}

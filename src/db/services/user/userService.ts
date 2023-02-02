@@ -1,7 +1,7 @@
-import { AuthenticatedUserDTO, CreateUserDTO, UserDTO, UserLoginDTO } from "../../../dtos/userDtos.js";
+import { AuthenticatedUserDTO, CreateUserDTO, UserDTO, UserLoginDTO, UserWithTodosDTO } from "../../../dtos/userDtos.js";
 import { Result } from "../../../types/Result.js";
 import * as userDal from "../../dal/userDal.js";
-import { toAuthenticatedUserDto, toUserDto } from "./userDtoMappers.js";
+import { toAuthenticatedUserDto, toUserDto, toUserWithTodosDto } from "./userDtoMappers.js";
 import { UserJwtPayload } from "../../../types/UserJwtPayload.js";
 import jwt from "jsonwebtoken";
 
@@ -12,7 +12,6 @@ export const create = async (user: CreateUserDTO): Promise<Result<UserDTO | null
         data: dbResult.success ? toUserDto(dbResult.data!) : null,
     };
 };
-
 
 export const login = async (credentials: UserLoginDTO): Promise<Result<AuthenticatedUserDTO | null>> => {
     const dbResult = await userDal.login(credentials);
@@ -26,4 +25,11 @@ export const login = async (credentials: UserLoginDTO): Promise<Result<Authentic
     }
 
     return {...dbResult, data: dbResult.data ? toAuthenticatedUserDto(dbResult.data, token) : null }
+}
+
+export const getUsersAndTodos = async(): Promise<Result<UserWithTodosDTO[]>> => {
+    const dbResult = await userDal.getUsersAndTodos();
+    const usersWithTodosDto = dbResult.data.map(toUserWithTodosDto)
+
+    return {success: dbResult.success, data: usersWithTodosDto }
 }

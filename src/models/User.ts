@@ -5,6 +5,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
+  NonAttribute,
 } from "sequelize";
 import bcrypt from "bcrypt";
 import Todo from "./Todo.js";
@@ -17,6 +18,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: CreationOptional<Date>;
+
+  declare Todos?: NonAttribute<Todo[]>;
 }
 
 User.init(

@@ -1,4 +1,4 @@
-import { Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import { CreateUserDTO, UserLoginDTO } from "../dtos/userDtos.js";
 import { validateRequestBody } from "../middlewares/requestBodyValidationMiddleware.js";
 import { CreateRequest, LoginRequest } from "./types/Request/genericRequests.js";
@@ -43,5 +43,21 @@ userRouter.post(
     }
   }
 );
+
+/*
+  Endpoint to test eager-loading of a model with relations/associations
+  This gets all users with their created todos.
+*/
+userRouter.get("/users-todos", async (req: Request, res: Response) => {
+  const result = await userController.getUsersAndTodos();
+
+  if (!result.success) {
+    res
+      .status(500)
+      .json({ error: "An error ocurred while fetching users and todos" });
+  } else {
+    res.status(200).json(result.data);
+  }
+});
 
 export default userRouter;  
