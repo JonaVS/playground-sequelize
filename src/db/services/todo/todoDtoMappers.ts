@@ -7,6 +7,7 @@ export const toTodoDto = (todo: Todo): TodoDTO => {
     userId: todo.UserId,
     title: todo.title,
     description: todo.description,
+    completed: todo.completed,
     createdAt: todo.createdAt,
     updatedAt: todo.updatedAt
   };

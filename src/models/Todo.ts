@@ -13,6 +13,7 @@ class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare id: CreationOptional<number>;
   declare title: string;
   declare description: string;
+  declare completed: CreationOptional<boolean>
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
   declare deletedAt: CreationOptional<Date>
@@ -38,6 +39,10 @@ Todo.init({
     validate: {
       notEmpty: true
     }
+  },
+  completed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
   createdAt: {
     type: DataTypes.DATE,
