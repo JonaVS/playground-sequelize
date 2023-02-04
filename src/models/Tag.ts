@@ -6,6 +6,8 @@ import {
   InferCreationAttributes,
   DataTypes,
 } from "sequelize";
+import Todo from "./Todo.js";
+import TodoTag from "./TodoTag.js";
 
 class Tag extends Model<InferAttributes<Tag>, InferCreationAttributes<Tag>> {
   declare id: CreationOptional<number>;
@@ -39,5 +41,8 @@ Tag.init({
   }
 }, {sequelize: sequelizeConnection , tableName: "Tags", paranoid: true});
 
+
+Todo.belongsToMany(Tag, { through: TodoTag });
+Tag.belongsToMany(Todo, { through: TodoTag });
 
 export default Tag

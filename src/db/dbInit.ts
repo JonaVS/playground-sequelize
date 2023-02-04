@@ -2,6 +2,7 @@ import { sequelizeConnection } from "./config.js";
 import User from "../models/User.js";
 import Todo from "../models/Todo.js";
 import Tag from "../models/Tag.js";
+import TodoTag from "../models/TodoTag.js";
 
 export const initDbConnection = async (): Promise<boolean> => {
   let success = false;
@@ -15,6 +16,8 @@ export const initDbConnection = async (): Promise<boolean> => {
       await User.sync({ alter: true }),
       await Todo.sync({ alter: true }),
       await Tag.sync({ alter: true }),
+      //Junction table for the many-to-many relation of Todos and Tags
+      await TodoTag.sync({ alter: true }),
     ]);
     success = true;
     console.log("Database connection and synchronization has been completed successfully");
