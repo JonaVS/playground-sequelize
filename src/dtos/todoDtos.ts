@@ -1,10 +1,12 @@
+import { TagDTO } from "./tagDtos.js";
+
 //userId field is added via middleware if valid JWT.
 export type CreateTodoDTO = {
   userId: number
   title: string;
   description: string;
   completed: boolean
-  tags?: string[]
+  tags?: TagDTO[]
 };
 
 export type TodoDTO = CreateTodoDTO & {
