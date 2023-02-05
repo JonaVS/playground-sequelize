@@ -6,8 +6,10 @@ import {
   InferCreationAttributes,
   DataTypes,
   ForeignKey,
+  HasManyAddAssociationsMixin,
 } from "sequelize";
 import User from "./User.js";
+import Tag from "./Tag.js";
 
 class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare id: CreationOptional<number>;
@@ -18,6 +20,8 @@ class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare updatedAt: CreationOptional<Date>
   declare deletedAt: CreationOptional<Date>
   declare UserId: ForeignKey<User['id']>;
+
+  declare addTags: HasManyAddAssociationsMixin<Tag, number>;
 }
 
 Todo.init({

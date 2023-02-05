@@ -4,6 +4,7 @@ export type CreateTodoDTO = {
   title: string;
   description: string;
   completed: boolean
+  tags?: string[]
 };
 
 export type TodoDTO = CreateTodoDTO & {
