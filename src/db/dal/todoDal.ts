@@ -80,6 +80,7 @@ export const create = async (todo: CreateTodoDTO): Promise<Result<Todo | null>> 
   } catch (error) {
     console.log("An error ocurred while creating the Todo entity");
     success = false;
+    createdTodo = null
   }
 
   return {success, data: createdTodo}
