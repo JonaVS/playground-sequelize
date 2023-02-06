@@ -23,7 +23,7 @@ export const getById = async (id: number):Promise<Result<Todo | null>> => {
   let success = true
   
   try {
-    todo = await Todo.findByPk(id);
+    todo = await Todo.findByPk(id, {include: Tag});
   } catch (error) {
     success = false;
     console.log("An error ocurred while fetching the specified Todo entity");
