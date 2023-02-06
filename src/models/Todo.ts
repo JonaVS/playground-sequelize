@@ -8,6 +8,8 @@ import {
   ForeignKey,
   HasManyAddAssociationsMixin,
   NonAttribute,
+  HasManyRemoveAssociationsMixin,
+  HasManyGetAssociationsMixin,
 } from "sequelize";
 import User from "./User.js";
 import Tag from "./Tag.js";
@@ -23,7 +25,9 @@ class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
   declare UserId: ForeignKey<User['id']>;
 
   declare Tags?: NonAttribute<Tag[]>;
+  declare getTags: HasManyGetAssociationsMixin<Tag>;
   declare addTags: HasManyAddAssociationsMixin<Tag, number>;
+  declare removeTags: HasManyRemoveAssociationsMixin<Tag, number>;
 }
 
 Todo.init({

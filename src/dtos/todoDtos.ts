@@ -15,4 +15,12 @@ export type TodoDTO = CreateTodoDTO & {
   updatedAt: Date
 };
 
-export type UpdateTodoDTO = Partial<CreateTodoDTO>;
+//userId field is added via middleware if valid JWT.
+export type UpdateTodoDTO = {
+  userId: number
+  todoData: Partial<Omit<CreateTodoDTO,"tags" | "userId">>,
+  tags?: {
+    tagsToRemove?: number[],
+    tagsToAdd?: string[] 
+  }
+}
