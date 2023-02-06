@@ -9,7 +9,7 @@ export const getAll = async ():Promise<Result<Todo[]>> => {
   let success = true
 
   try {
-    todos = await Todo.findAll();
+    todos = await Todo.findAll({include: Tag});
   } catch (error) {
     success = false
     console.log("An error ocurred while fetching the Todo entities");
